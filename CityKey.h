@@ -10,24 +10,14 @@
 #include <algorithm>
 #include <utility>
 
-
-
-
+//normalized vari
 struct CityKey {
     std::string city;
     std::string state;
-
+//comparison
     bool operator==(const CityKey& o) const noexcept {
         return city == o.city && state == o.state;
     }
-
-    static std::string trim(std::string s) {
-        auto notspace = [](unsigned char c){ return !std::isspace(c); };
-        s.erase(s.begin(), std::find_if(s.begin(), s.end(), notspace));
-        s.erase(std::find_if(s.rbegin(), s.rend(), notspace).base(), s.end());
-        return s;
-    }
-
     static std::string to_upper(std::string s) {
         for (auto& ch : s) ch = static_cast<char>(std::toupper(static_cast<unsigned char>(ch)));
         return s;
@@ -43,7 +33,6 @@ struct CityKey {
         }
         return s;
     }
-
     static CityKey fromRaw(std::string cityRaw, std::string stateRaw) {
         auto c = to_title(trim(std::move(cityRaw)));
         auto s = to_upper(trim(std::move(stateRaw)));
@@ -58,3 +47,4 @@ struct CityKeyHash {
     }
 };
 #endif //CITYKEY_H
+
