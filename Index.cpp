@@ -10,6 +10,7 @@
 #include <filesystem>
 #include <iostream>
 
+//split the csv  for funcs below
 static std::vector<std::string> split_csv_simple(const std::string& line) {
     std::vector<std::string> out;
     out.reserve(12);
@@ -22,7 +23,7 @@ static std::vector<std::string> split_csv_simple(const std::string& line) {
     out.push_back(cur);
     return out;
 }
-
+//making seperate columns for the city state lat and lon
 bool SpatialIndex::parseHeader(const std::string& header, int& idxCity, int& idxState, int& idxLat, int& idxLon) {
     idxCity = idxState = idxLat = idxLon = -1;
     auto cols = split_csv_simple(header);
@@ -37,7 +38,7 @@ bool SpatialIndex::parseHeader(const std::string& header, int& idxCity, int& idx
     }
     return (idxCity >= 0 && idxState >= 0 && idxLat >= 0 && idxLon >= 0);
 }
-
+//parsed
 bool SpatialIndex::parseRowLite(const std::string& line, int idxCity, int idxState, int idxLat, int idxLon, RowLite& out) {
     auto cols = split_csv_simple(line);
     int need = std::max(std::max(idxCity, idxState), std::max(idxLat, idxLon));
@@ -61,32 +62,27 @@ bool SpatialIndex::parseRowLite(const std::string& line, int idxCity, int idxSta
     out.state = std::move(norm.state);
     return true;
 }
-
+//load csv, building the box that captures the houses 
 void SpatialIndex::loadCSV(const std::string& path, bool logProgress) {
     loaded_ = skipped_ = 0;
     points_.clear();
     centers_.clear();
     adj_by_dist_.clear();
-
     std::error_code ec;
     auto abs = std::filesystem::absolute(path, ec);
     if (logProgress) {
         std::cout << "Opening CSV: " << (ec ? path : abs.string()) << "\n";
     }
-
     std::ifstream fin(path);
     if (!fin) throw std::runtime_error("Cannot open CSV: " + (ec ? path : abs.string()));
-
     std::string header;
     if (!std::getline(fin, header)) {
         throw std::runtime_error("Empty CSV or failed to read header.");
     }
-
     int idxCity=-1, idxState=-1, idxLat=-1, idxLon=-1;
     if (!parseHeader(header, idxCity, idxState, idxLat, idxLon)) {
         throw std::runtime_error("Header missing required columns (need city,state,lat,lon). Header was: " + header);
     }
-
     std::string line;
     std::size_t progress = 0;
     while (std::getline(fin, line)) {
@@ -102,15 +98,13 @@ void SpatialIndex::loadCSV(const std::string& path, bool logProgress) {
             std::cout << "Processed " << progress << " lines...\n";
         }
     }
-
     computeCenters();
     buildAdjacency();
-
     if (logProgress) {
         std::cout << "Loaded rows: " << loaded_ << ", skipped: " << skipped_ << ", unique states: " << points_.size() << ", unique cities: " << totalCities() << "\n";
     }
 }
-
+//compute mean
 void SpatialIndex::computeCenters() {
     centers_.clear();
     for (auto& kvState : points_) {
@@ -125,7 +119,7 @@ void SpatialIndex::computeCenters() {
         }
     }
 }
-
+//sorting the distance from center to each point with distances that were already made eairler
 void SpatialIndex::buildAdjacency() {
     adj_by_dist_.clear();
     for (auto& kvS : points_) {
@@ -133,13 +127,11 @@ void SpatialIndex::buildAdjacency() {
         for (auto& kvC : kvS.second) {
             const std::string& ci = kvC.first;
             const auto& vec = kvC.second;
-
             auto itS = centers_.find(st);
             if (itS == centers_.end()) continue;
             auto itC = itS->second.find(ci);
             if (itC == itS->second.end()) continue;
             CenterLL ctr = itC->second;
-
             auto& adj = adj_by_dist_[st][ci];
             adj.reserve(vec.size());
             for (std::size_t i = 0; i < vec.size(); ++i) {
@@ -152,7 +144,7 @@ void SpatialIndex::buildAdjacency() {
         }
     }
 }
-
+//look up the center
 std::optional<CenterLL> SpatialIndex::getCenter(const std::string& stateRaw, const std::string& cityRaw) const {
     auto key = CityKey::fromRaw(cityRaw, stateRaw);
     auto itS = centers_.find(key.state);
@@ -161,7 +153,7 @@ std::optional<CenterLL> SpatialIndex::getCenter(const std::string& stateRaw, con
     if (itC == itS->second.end()) return std::nullopt;
     return itC->second;
 }
-
+//sort states
 std::vector<std::string> SpatialIndex::getStates() const {
     std::vector<std::string> states;
     states.reserve(points_.size());
@@ -169,7 +161,7 @@ std::vector<std::string> SpatialIndex::getStates() const {
     std::sort(states.begin(), states.end());
     return states;
 }
-
+//sort list of cities
 std::vector<std::string> SpatialIndex::getCities(const std::string& stateRaw) const {
     auto st = CityKey::to_upper(CityKey::trim(stateRaw));
     std::vector<std::string> cities;
@@ -251,3 +243,4 @@ std::vector<PointLL> SpatialIndex::queryKmFast(const std::string& stateRaw, cons
     }
     return out;
 }
+
