@@ -39,12 +39,7 @@ struct CityKey {
         return CityKey{c, s};
     }
 };
-struct CityKeyHash {
-    std::size_t operator()(const CityKey& k) const noexcept {
-        std::size_t h1 = std::hash<std::string>{}(k.city);
-        std::size_t h2 = std::hash<std::string>{}(k.state);
-        return h1 ^ (h2 + 0x9e3779b97f4a7c15ULL + (h1<<6) + (h1>>2));
-    }
-};
+
 #endif //CITYKEY_H
+
 
