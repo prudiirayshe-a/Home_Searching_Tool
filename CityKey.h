@@ -4,7 +4,6 @@
 
 #ifndef CITYKEY_H
 #define CITYKEY_H
-#pragma once
 #include <string>
 #include <cctype>
 #include <algorithm>
@@ -41,5 +40,6 @@ struct CityKey {
 };
 
 #endif //CITYKEY_H
+
 
 
