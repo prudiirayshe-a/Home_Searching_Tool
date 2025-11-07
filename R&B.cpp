@@ -481,7 +481,7 @@ void red_b<T>::double_B_helper(Node* exsibling, Node* expar){
         }
     }
 }
-
+//Should not be used in general cases but can be used if a specific unit needs to be removed
 template <typename T>
 bool red_b<T>::erase(int pos){
     if(pos >= tree_size || pos<0 ){
@@ -518,7 +518,7 @@ bool red_b<T>::erase(int pos){
     }
     return false;
 }
-// data based removal, removes only the node with the given data
+// data based removal, removes only the node with the given data, should not be used often.
 template <typename T>
 bool red_b<T>::erase(T a){
     //Morris Traversal Implementation.
@@ -550,7 +550,7 @@ bool red_b<T>::erase(T a){
     }
     return false;
 }
-//range based removal
+//range based removal, use with 0, size-1 to clear the tree.
 template <typename T>
 bool red_b<T>::erase(int first, int last){
     if(first<0 || last > tree_size-1){
@@ -692,6 +692,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
