@@ -633,10 +633,13 @@ template <typename T>
 //Operator Overloads
 template <typename T>
 std::vector<T> red_b<T>::operator[](int a){
-    if(a>tree_size){
+    if(a>tree_size || a<0){
         throw std::out_of_range("Tree is not large enough");
     }
     std::vector<T> output;
+    if(a==0){
+        return output;
+    }
     int counter= 0;
     //Morris Traversal Implementation.
     // I wanted a non recursive solution which used as little space as possible
@@ -645,16 +648,16 @@ std::vector<T> red_b<T>::operator[](int a){
     // The Morris Travel algorithm which I found at the above uses O(1) space and meets that criteria.
     Node* current_node = root;
     while(current_node != nullptr){
-        
         if(current_node->rc == nullptr){
-            //this handles the case of no right child and moves to the left child
-            current_node = current_node->lc;
-            if(counter<=a){
+            if(counter<a){
                 output.push_back(current_node->data);
             }
             counter++;
-        }else{
-            //This handles the case of a left child
+            //this handles the case of no right child and moves to the left child
+            current_node = current_node->lc;
+            
+        }else if(current_node->rc!= nullptr){
+            //This handles the case of a right child
             Node* in_order_successor = current_node->rc;
             while(in_order_successor->lc != nullptr && in_order_successor->lc != current_node){
                 in_order_successor = in_order_successor->lc;
@@ -663,11 +666,12 @@ std::vector<T> red_b<T>::operator[](int a){
                 in_order_successor->lc = current_node;
                 current_node = current_node->rc;
             }else{
-                if(counter<=a){
+                
+                in_order_successor->lc = nullptr;
+                if(counter<a){
                     output.push_back(current_node->data);
                 }
                 counter++;
-                in_order_successor->lc = nullptr;
                 current_node = current_node->lc;
             }
             }
@@ -690,6 +694,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
