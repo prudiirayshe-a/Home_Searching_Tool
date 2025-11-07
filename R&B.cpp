@@ -630,8 +630,6 @@ T red_b<T>::at(int a){
 };
 //Operator Overloads
 template <typename T>
-//Operator Overloads
-template <typename T>
 std::vector<T> red_b<T>::operator[](int a){
     if(a>tree_size || a<0){
         throw std::out_of_range("Tree is not large enough");
@@ -694,6 +692,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
