@@ -363,9 +363,9 @@ void red_b<T>::double_B_helper(Node* N){
         xkid = N->rc;
     }
     if(xpar->lc == N){
-        xsib= exparent->rc;
+        xsib= xpar->rc;
     }else{
-        xsib=exparent->lc;
+        xsib=xpar->lc;
     }
     //move up to parent to fix
     if(xsib == nullptr){
@@ -427,9 +427,9 @@ void red_b<T>::double_B_helper(Node* exsibling, Node* expar){
     Node* xpar = expar;
     Node* xsib = exsibling;
     if(xpar->lc == N){
-        xsib= exparent->rc;
+        xsib= xpar->rc;
     }else{
-        xsib=exparent->lc;
+        xsib=xpar->lc;
     }
     //move up to parent to fix
     if(xsib == nullptr){
@@ -690,6 +690,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
