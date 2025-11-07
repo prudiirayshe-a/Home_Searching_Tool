@@ -18,7 +18,10 @@ struct CityKey {
         return city == o.city && state == o.state;
     }
     static std::string to_upper(std::string s) {
-        for (auto& ch : s) ch = static_cast<char>(std::toupper(static_cast<unsigned char>(ch)));
+        for (auto& ch : s){ 
+            ch = static_cast<char>(std::toupper(static_cast<unsigned char>(ch)));
+        }
+        
         return s;
     }
 
@@ -26,8 +29,13 @@ struct CityKey {
         bool newWord = true;
         for (auto& ch : s) {
             unsigned char u = static_cast<unsigned char>(ch);
-            if (std::isspace(u) || ch=='-' || ch=='\'') { newWord = true; continue; }
-            ch = static_cast<char>(newWord ? std::toupper(u) : std::tolower(u));
+            if (std::isspace(u) || ch=='-' || ch=='\'') { 
+                newWord = true; continue; 
+            }
+            if(newWord){
+                ch=static_cast<char>(std::toupper(u));
+            }else{
+                ch=static_cast<char>(std::tolower(u));
             newWord = false;
         }
         return s;
@@ -40,6 +48,7 @@ struct CityKey {
 };
 
 #endif //CITYKEY_H
+
 
 
 
