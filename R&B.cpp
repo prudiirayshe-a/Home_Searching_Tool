@@ -426,7 +426,7 @@ void red_b<T>::double_B_helper(Node* exsibling, Node* expar){
     // ex parent, ex sibling, and x kid
     Node* xpar = expar;
     Node* xsib = exsibling;
-    if(xpar->lc == N){
+    if(xpar->lc == nullptr){
         xsib= xpar->rc;
     }else{
         xsib=xpar->lc;
@@ -694,6 +694,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
