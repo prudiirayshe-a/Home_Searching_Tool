@@ -1,3 +1,4 @@
+#include <vector>
 #pragma once
 template <typename T>
 class red_b{
@@ -46,8 +47,9 @@ class red_b{
     bool erase(int first, int last);
     bool recoloring_rotation(Node* parent);
     bool rotation(Node* N);
-    T operator[](int a);
+    std::vector<T> operator[](int a);
     T at(int a);
     void delete_subtree(Node* n);
     ~red_b();
+
 };
