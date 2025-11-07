@@ -630,7 +630,10 @@ T red_b<T>::at(int a){
 };
 //Operator Overloads
 template <typename T>
-T red_b<T>::operator[](int a){
+//Operator Overloads
+template <typename T>
+std::vector<T> red_b<T>::operator[](int a){
+    std::vector<T> output;
     int counter= 0;
     //Morris Traversal Implementation.
     // I wanted a non recursive solution which used as little space as possible
@@ -638,12 +641,14 @@ T red_b<T>::operator[](int a){
     // The Morris Travel algorithm which I found at the above uses O(1) space and meets that criteria.
     Node* current_node = root;
     while(current_node != nullptr){
-        if(counter==a){
-            return current_node->data;
-        }
+        
         if(current_node->lc == nullptr){
             //this handles the case of no left child and moves to the right child
             current_node = current_node->rc;
+            if(counter<=a){
+                output.push_back(current_node->data);
+            }
+            counter++;
         }else{
             //This handles the case of a left child
             Node* in_order_predecessor = current_node->lc;
@@ -654,16 +659,17 @@ T red_b<T>::operator[](int a){
                 in_order_predecessor->rc = current_node;
                 current_node = current_node->lc;
             }else{
+                if(counter<=a){
+                    output.push_back(current_node->data);
+                }
+                counter++;
                 in_order_predecessor->rc = nullptr;
                 current_node = current_node->rc;
             }
             }
-        counter++;
     }
-    //For the compiler
-    throw std::out_of_range("Index is not within valid range");
+    return output;
 };
-
 //Destructor and Destructor Helper
 //helper
 template <typename T>
@@ -680,3 +686,4 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
