@@ -1,6 +1,6 @@
 #include "R&B.h"
 #include <stdexcept>
-
+#include <vector>
 //constructor and copy constructor w/helper
 template <typename T>
 red_b<T>::red_b(){
@@ -690,5 +690,6 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
