@@ -45,6 +45,9 @@ bool red_b<T>::insert(T a){
     Node* curr = root;
     Node* lagging = nullptr;
     while(curr !=nullptr){
+        if(a == curr->data){
+            return false;
+        }
         if(a < curr->data){
             lagging = curr;
             curr = curr->lc;
@@ -72,7 +75,6 @@ bool red_b<T>::insert(T a){
         recoloring_rotation(child);
         return true;
     }
-    return false;
 };
 
 template <typename T>
@@ -568,6 +570,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
