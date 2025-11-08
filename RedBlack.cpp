@@ -546,6 +546,13 @@ std::vector<T> red_b<T>::operator[](int a){
             }
             }
     }
+    if(a==tree_size){
+        Node* last_one = root;
+        while(last_one->lc != nullptr){
+            last_one = last_one->lc;
+        }
+        output.push_back(last_one->data);
+    }
     return output;
 };
 //Destructor and Destructor Helper
@@ -562,6 +569,7 @@ void red_b<T>::delete_subtree(Node* n){
 //clear() to empty the red-black tree
 template <typename T>
 void red_b<T>::clear(){
+    tree_size = 0;
     Node* temp = root;
     delete_subtree(temp);
     root =nullptr;
@@ -571,6 +579,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
