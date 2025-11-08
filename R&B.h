@@ -50,6 +50,8 @@ class red_b{
     std::vector<T> operator[](int a);
     T at(int a);
     void delete_subtree(Node* n);
+    void clear();
     ~red_b();
 
 };
+
