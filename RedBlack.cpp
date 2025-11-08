@@ -562,7 +562,6 @@ void red_b<T>::delete_subtree(Node* n){
 //clear() to empty the red-black tree
 template <typename T>
 void red_b<T>::clear(){
-    tree_size = 0;
     Node* temp = root;
     delete_subtree(temp);
     root =nullptr;
@@ -572,6 +571,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
