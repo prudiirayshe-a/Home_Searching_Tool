@@ -22,6 +22,9 @@ struct PointLL {
     bool operator<(const PointLL& other) const{
         return other.price< this->price;
     }
+    bool operator==(const PointLL& other) const {
+        return (other.price == this->price && other.lon == this->lon);
+    }
 };
 
 // center
@@ -58,11 +61,11 @@ public:
     vector<PointLL> queryKm(string stateRaw, string cityRaw, double radius_km);
     vector<PointLL> queryKmFast(string stateRaw, string cityRaw, double radius_km);
 
-    size_t totalRowsLoaded() { 
-        return loaded_; 
+    size_t totalRowsLoaded() {
+        return loaded_;
     }
-    size_t totalRowsSkipped() { 
-        return skipped_; 
+    size_t totalRowsSkipped() {
+        return skipped_;
     }
 
 private:
@@ -77,11 +80,11 @@ private:
     size_t skipped_{0};
 
     static bool parseHeader(string header, int& idxCity, int& idxState, int& idxLat, int& idxLon, int& idxPrice);
-    static bool parseRowLite(string line, int idxCity, int idxState, int idxLat, int idxLon, int idxPrice RowLite& out);
+    static bool parseRowLite(string line, int idxCity, int idxState, int idxLat, int idxLon, int idxPrice, RowLite& out);
 
     static double haversine_km(double lat1, double lon1, double lat2, double lon2);
-    static double deg2rad(double x) { 
-        return x * 0.01745; 
+    static double deg2rad(double x) {
+        return x * 0.01745;
     }
 
     void computeCenters();
@@ -89,5 +92,4 @@ private:
 };
 
 #endif // INDEX_H
-
 
