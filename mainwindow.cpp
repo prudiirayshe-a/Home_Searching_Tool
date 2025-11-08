@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    std::string csv = "C:/Users/jacob/OneDrive/Documents/untitled2/homes_gen_50states_realcities_with_price.csv"; //im using absolute pathing since i don't think a TA will be executing this file.
+    std::string csv = "homes_gen_50states_realcities_with_price.csv";//im using absolute pathing since i don't think a TA will be executing this file.
     index.loadCSV(csv, true);
     QStringList ListofStates = addStatesToList(index);
     //reference for the "combo box" (dropdown) https://doc.qt.io/qt-6/qcombobox.html
@@ -158,3 +158,4 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
