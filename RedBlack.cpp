@@ -553,17 +553,3 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
