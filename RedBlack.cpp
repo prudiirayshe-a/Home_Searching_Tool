@@ -101,7 +101,6 @@ bool red_b<T>::recoloring_rotation(Node* N){
             return recoloring_rotation(N->parent->parent);
         }
             return true;
-        }
     }
 
 };
@@ -563,6 +562,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
