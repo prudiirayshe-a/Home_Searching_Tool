@@ -57,7 +57,7 @@ bool red_b<T>::insert(T a){
     //lagging will be the parent node which must be checked current will be a nullptr
     //we now add the new node into the tree
     Node* child;
-    if(lagging->data < a){
+    if(a<lagging->data){
         lagging->lc = new Node(a);
         child = lagging->lc;
     }else{
@@ -700,6 +700,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
