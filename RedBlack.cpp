@@ -481,45 +481,6 @@ void red_b<T>::double_B_helper(Node* exsibling, Node* expar){
         }
     }
 }
-
-//insertion
-template <typename T>
-T red_b<T>::at(int a){
-    if(a>= tree_size || a<0){
-        throw std::out_of_range("Index is not within valid range");
-    }
-    int counter= 0;
-    //Morris Traversal Implementation.
-    // I wanted a non recursive solution which used as little space as possible
-    //https://www.geeksforgeeks.org/dsa/inorder-tree-traversal-without-recursion-and-without-stack
-    // The Morris Travel algorithm which I found at the above uses O(1) space and meets that criteria.
-    Node* current_node = root;
-    while(current_node != nullptr){
-        if(counter==a){
-            return current_node->data;
-        }
-        if(current_node->lc == nullptr){
-            //this handles the case of no left child and moves to the right child
-            current_node = current_node->rc;
-        }else{
-            //This handles the case of a left child
-            Node* in_order_predecessor = current_node->lc;
-            while(in_order_predecessor->rc != nullptr && in_order_predecessor->rc != current_node){
-                in_order_predecessor = in_order_predecessor->rc;
-            }
-            if(in_order_predecessor->rc == nullptr){
-                in_order_predecessor->rc = current_node;
-                current_node = current_node->lc;
-            }else{
-                in_order_predecessor->rc = nullptr;
-                current_node = current_node->rc;
-            }
-            }
-        counter++;
-    }
-    //for the compiler
-    throw std::out_of_range("Index is not within valid range");
-};
 //Operator Overloads
 template <typename T>
 std::vector<T> red_b<T>::operator[](int a){
@@ -592,6 +553,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
