@@ -39,6 +39,7 @@ template <typename T>
 bool red_b<T>::insert(T a){
     if(root==nullptr){
         root = new Node(a);
+        tree_size++;
         root->is_red = false;
         return true;
     }
@@ -579,6 +580,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
