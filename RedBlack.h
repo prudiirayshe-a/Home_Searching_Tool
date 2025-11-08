@@ -42,9 +42,6 @@ class red_b{
     bool empty();
     bool insert(T a);
     bool remove(Node* N);
-    bool erase(int pos);
-    bool erase(T a);
-    bool erase(int first, int last);
     bool recoloring_rotation(Node* parent);
     bool rotation(Node* N);
     std::vector<T> operator[](int a);
@@ -54,4 +51,5 @@ class red_b{
     ~red_b();
 
 };
+
 
