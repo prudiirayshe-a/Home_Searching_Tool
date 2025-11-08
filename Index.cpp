@@ -377,15 +377,19 @@ vector<PointLL> SpatialIndex::queryKmFast(string stateRaw, string cityRaw, doubl
 
     // first index with dist_km > radius_km
     auto cutoff = upper_bound(
-        edges.begin(), edges.end(), radius_km,
-        [](double r, Edge e) { return r < e.dist_km; }
-    );
+    edges.begin(), edges.end(), radius_km,
+    [](double r, Edge e){ return r < e.dist_km; }
+);
 
     size_t count = (size_t)distance(edges.begin(), cutoff);
     results.reserve(count);
     for (size_t i = 0; i < count; ++i) {
-        results.push_back(pts[edges[i].idx]);
+        size_t idx = edges[i].idx;
+        if (idx < pts.size()) {
+            results.push_back(pts[idx]);
+        }
     }
     return results;
 }
+
 
