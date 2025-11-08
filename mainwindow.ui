@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: darkblue</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="CityInputLabel">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>0</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>City Input</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="CityInput">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>20</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: purple</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StateInputLabel">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>50</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>State Input</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="StateInput">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>70</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: purple</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="DistanceFromCityCenterInputLabel">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>100</y>
+      <width>171</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Distance from City Center Input</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="StartSearchButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>170</y>
+      <width>131</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: purple</string>
+    </property>
+    <property name="text">
+     <string>BEGIN SEARCH!</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="DistanceFromCityCenterInput">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>130</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="RBTreeMode">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>520</y>
+      <width>90</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string>RB Tree</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="MaxHeapMode">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>520</y>
+      <width>90</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Max Heap</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="RuntimeLabel">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>490</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Placeholder</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="UselessLabel">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>490</y>
+      <width>171</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Runtime:</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="HouseListDisplay">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>461</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 4px solid black;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="HouseListLabel">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>30</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>House List</string>
+    </property>
+   </widget>
+   <zorder>UselessLabel</zorder>
+   <zorder>CityInputLabel</zorder>
+   <zorder>CityInput</zorder>
+   <zorder>StateInputLabel</zorder>
+   <zorder>StateInput</zorder>
+   <zorder>DistanceFromCityCenterInputLabel</zorder>
+   <zorder>StartSearchButton</zorder>
+   <zorder>DistanceFromCityCenterInput</zorder>
+   <zorder>RBTreeMode</zorder>
+   <zorder>MaxHeapMode</zorder>
+   <zorder>RuntimeLabel</zorder>
+   <zorder>HouseListDisplay</zorder>
+   <zorder>HouseListLabel</zorder>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDreamhome">
+    <property name="title">
+     <string>Dreamhome</string>
+    </property>
+   </widget>
+   <addaction name="menuDreamhome"/>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
