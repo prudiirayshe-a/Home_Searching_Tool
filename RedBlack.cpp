@@ -443,6 +443,7 @@ void red_b<T>::double_B_helper(Node* exsibling, Node* expar){
     //move up to parent to fix
     if(xsib == nullptr){
         double_B_helper(xpar);
+        return;
     }
     //true == red false ==black;
     //ex sibling left child and ex sibling right child is_red are stored in these for easier refference
@@ -562,6 +563,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
