@@ -252,12 +252,14 @@ bool red_b<T>::remove(Node* N){
         if(N->is_red || xkid->is_red){
             if(exparent->lc == N){
                 exparent->lc = xkid;
+                xkid->parent = exparent;
                 xkid->is_red = false;
                 delete N;
                 tree_size--;
                 return true;
             }else{
                 exparent->rc = xkid;
+                xkid->parent = exparent;
                 xkid->is_red = false;
                 delete N;
                 tree_size--;
@@ -282,12 +284,14 @@ bool red_b<T>::remove(Node* N){
         if(N->is_red || xkid->is_red){
             if(exparent->lc == N){
                 exparent->lc = xkid;
+                xkid->parent = exparent;
                 xkid->is_red = false;
                 delete N;
                 tree_size--;
                 return true;
             }else{
                 exparent->rc = xkid;
+                xkid->parent = exparent;
                 xkid->is_red = false;
                 delete N;
                 tree_size--;
@@ -562,6 +566,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
