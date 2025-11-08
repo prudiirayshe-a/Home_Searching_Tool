@@ -128,7 +128,7 @@ bool red_b<T>::rotation(Node* N){
         //RL case
     }else if(N == N->parent->lc && N->parent == N->parent->parent-> rc){
         rotate_right(N, N->parent);
-        rotate_left(N, N->parent->parent);
+        rotate_left(N, N->parent);
         former_grand->is_red = !former_grand->is_red;
         N->is_red = !N->is_red;
         return true;
@@ -136,7 +136,7 @@ bool red_b<T>::rotation(Node* N){
         //Finally the LR case
     }else if(N == N->parent->rc && N->parent == N->parent->parent-> lc){
         rotate_left(N, N->parent);
-        rotate_right(N, N->parent->parent);
+        rotate_right(N, N->parent);
         former_grand->is_red = !former_grand->is_red;
         N->is_red = !N->is_red;
         return true;
@@ -568,6 +568,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
