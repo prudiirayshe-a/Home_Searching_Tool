@@ -51,8 +51,9 @@ static inline void to_lower_inplace(string& s) {
 
 //where we parse stuff
 // Find indices for city/state/lat/lon in header
-bool SpatialIndex::parseHeader(string header, int& idxCity, int& idxState, int& idxLat, int& idxLon) {
+bool SpatialIndex::parseHeader(string header, int& idxCity, int& idxState, int& idxLat, int& idxLon, int& idxPrice) {
     idxCity = idxState = idxLat = idxLon = -1;
+    idxPrice=-1;
 
     vector<string> columns = split_csv_simple(header);
     for (int i = 0; i < (int)columns.size(); ++i) {
@@ -67,13 +68,15 @@ bool SpatialIndex::parseHeader(string header, int& idxCity, int& idxState, int& 
             idxLat = i;
         } else if (name == "lon" || name == "lng" || name == "longitude" || name == "long" || name == "lon_deg") {
             idxLon = i;
+        }else if (name=="price"){
+            idxPrice=i;
         }
     }
     return (idxCity >= 0 && idxState >= 0 && idxLat >= 0 && idxLon >= 0);
 }
 
 // Parse one data row into RowLite
-bool SpatialIndex::parseRowLite(string line, int idxCity, int idxState, int idxLat, int idxLon, RowLite& out) {
+bool SpatialIndex::parseRowLite(string line, int idxCity, int idxState, int idxLat, int idxLon, int idxPrice, RowLite& out) {
     vector<string> columns = split_csv_simple(line);
     int maxNeeded = max(max(idxCity, idxState), max(idxLat, idxLon));
     if ((int)columns.size() <= maxNeeded) {
@@ -107,7 +110,17 @@ bool SpatialIndex::parseRowLite(string line, int idxCity, int idxState, int idxL
     if (out.lat < -90.0 || out.lat > 90.0 || out.lon < -180.0 || out.lon > 180.0) {
         return false;
     }
-
+    //:)
+    out.price = 0;
+    if (idxPrice >= 0 && idxPrice < (int)columns.size()) {
+        string priceField = CityKey::trim(columns[idxPrice]);
+        strip_outer_quotes(priceField);
+        char* endp2 = 0;
+        long long p = strtoll(priceField.c_str(), &endp2, 10);
+        if (endp2 && *endp2 == '\0' && p >= 0 && p <= 1000000000LL) {
+            out.price = (int)p;
+        }
+    }
     CityKey norm = CityKey::fromRaw(cityField, stateField);
     out.city  = std::move(norm.city);
     out.state = std::move(norm.state);
@@ -143,8 +156,8 @@ void SpatialIndex::loadCSV(string path, bool logProgress) {
         return;
     }
 
-    int idxCity = -1, idxState = -1, idxLat = -1, idxLon = -1;
-    if (!parseHeader(header, idxCity, idxState, idxLat, idxLon)) {
+    int idxCity = -1, idxState = -1, idxLat = -1, idxLon = -1;, idxPrice=-1;
+    if (!parseHeader(header, idxCity, idxState, idxLat, idxLon, idxPrice)) {
         if (logProgress) {
             cout << "Header missing city/state/lat/lon\n";
         }
@@ -157,11 +170,11 @@ void SpatialIndex::loadCSV(string path, bool logProgress) {
             continue;
         }
         RowLite parsed;
-        if (!parseRowLite(row, idxCity, idxState, idxLat, idxLon, parsed)) {
+        if (!parseRowLite(row, idxCity, idxState, idxLat, idxLon, idxPrice, parsed)) {
             skipped_ += 1;
             continue;
         }
-        points_[parsed.state][parsed.city].push_back(PointLL{parsed.lat, parsed.lon});
+        points_[parsed.state][parsed.city].push_back(PointLL{parsed.lat, parsed.lon, parsed.price});
         loaded_ += 1;
     }
 
@@ -391,5 +404,6 @@ vector<PointLL> SpatialIndex::queryKmFast(string stateRaw, string cityRaw, doubl
     }
     return results;
 }
+
 
 
