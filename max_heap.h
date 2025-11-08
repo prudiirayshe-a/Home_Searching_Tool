@@ -107,7 +107,7 @@ class max_heap{
         this->internal_arr = new dynam_array<T>(*(other.internal_arr));
     }
     //recursive heapify  function, continues until it reaches a leaf node
-    void heapify(int i){
+    void heapify_down(int i){
         int max = i;
         int left_index = 2*i+1;
         int right_index = 2*i+2;
@@ -122,7 +122,7 @@ class max_heap{
         }
         if(max != i){
              internal_arr->swap(i,max);
-            heapify(max);
+            heapify_down(max);
         }
     }
     //return the top value;
@@ -140,12 +140,19 @@ class max_heap{
         T temp = (*internal_arr)[0];
         internal_arr->swap(0,internal_arr->size-1);
         internal_arr->decrement_size();
-        heapify(0);
+        heapify_down(0);
         return temp;
     }
     // push after those heap should be done
     void push(T a){
         internal_arr->push_back(a);
+        int last = internal_arr->size- 1;
+        while (last > 0) {
+            if ((*internal_arr)[(last-1)/2] < (*internal_arr)[last]) {
+            internal_arr->swap(last, (last-1)/2);
+            }
+            last = (last-1)/2;
+        }
         return;
     }
     //Assignment operator
