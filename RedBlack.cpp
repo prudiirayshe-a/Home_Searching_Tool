@@ -97,9 +97,9 @@ bool red_b<T>::recoloring_rotation(Node* N){
         uncle->is_red =  false;
         N->parent->is_red = false;
         if(N->parent->parent != root){
-            N->parent->parent->is_red = !N->parent->parent->is_red;
+            N->parent->parent->is_red = true;
             return recoloring_rotation(N->parent->parent);
-        }else{
+        }
             return true;
         }
     }
@@ -563,6 +563,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
