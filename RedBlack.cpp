@@ -86,10 +86,10 @@ bool red_b<T>::recoloring_rotation(Node* N){
     }
     //tracks is the node is a left or right child; and sets uncle
     Node* uncle;
-    if(N->parent->lc == N){
-        uncle = N->parent->rc;
+    if(N->parent->parent->lc == N->parent){
+        uncle = N->parent->parent->rc;
     }else{
-        uncle = N->parent->lc;
+        uncle = N->parent->parent->lc;
     }
     if(uncle == nullptr || uncle->is_red == false){
         return rotation(N);
@@ -555,5 +555,6 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
