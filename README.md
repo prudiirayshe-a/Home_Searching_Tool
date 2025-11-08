@@ -2,5 +2,8 @@
 This project is built using a QT UI and two from scratch data structures, a red-black tree and a maxheap, using only a vector once for the sake of internal convenience as they are used within our project. 
 R&B.h and R&B.cpp our files which contain the red and black tree implementation and max_heap.h/.cpp were written by Carter, the UI and mainfile was written by Jacob, and the hash traversal algorithm plus csv input parser were written by Justin.
 
-// operator< (class A){
-//return score < A->score}
+To Run:
+Download the zip file "DreamhomeRelease2.zip" or something named similar to it
+unzip
+run the exectuable
+it should work perfectly!
