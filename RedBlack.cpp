@@ -81,6 +81,8 @@ bool red_b<T>::recoloring_rotation(Node* N){
         return true;
     }else if(N->parent->is_red == false){
         return true;
+    }else if(N->parent == root){
+        return true;
     }
     //tracks is the node is a left or right child; and sets uncle
     Node* uncle;
@@ -553,4 +555,5 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
