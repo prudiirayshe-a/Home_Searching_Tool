@@ -12,7 +12,7 @@ class red_b{
         Node(T input_1){
             data = input_1;
         };
-        Node(Node& A){
+        Node(const Node& A){
             parent = A.parent;
             lc= A.lc;
             rc = A.rc;
@@ -51,6 +51,7 @@ class red_b{
     ~red_b();
 
 };
+
 
 
 
