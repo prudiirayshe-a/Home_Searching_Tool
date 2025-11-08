@@ -17,7 +17,7 @@ typename red_b<T>::Node* red_b<T>::copy_helper(Node* source, Node* parent){
         return nullptr;
     }
     //create the new node
-    Node* new_node = new Node*(source->data);
+    Node* new_node = new Node(source->data);
     //assign all the internal data
     new_node->is_red = source->is_red;
     new_node->parent = parent;
@@ -553,3 +553,4 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
