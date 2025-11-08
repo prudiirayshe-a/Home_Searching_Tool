@@ -25,6 +25,7 @@ class red_b{
             rc = A.rc;
             is_red = A.is_red;
             data = A.data;
+            return *this;
         }
         ~Node(){};
     };
@@ -50,6 +51,7 @@ class red_b{
     ~red_b();
 
 };
+
 
 
 
