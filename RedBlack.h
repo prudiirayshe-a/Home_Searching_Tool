@@ -45,11 +45,11 @@ class red_b{
     bool recoloring_rotation(Node* parent);
     bool rotation(Node* N);
     std::vector<T> operator[](int a);
-    T at(int a);
     void delete_subtree(Node* n);
     void clear();
     ~red_b();
 
 };
+
 
 
