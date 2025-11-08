@@ -18,6 +18,10 @@ struct PointLL {
     double lat{};
     double lon{};
     int price{0};
+
+    bool operator<(const PointLL& other) const{
+        return other.price< this->price;
+    }
 };
 
 // center
@@ -85,4 +89,5 @@ private:
 };
 
 #endif // INDEX_H
+
 
