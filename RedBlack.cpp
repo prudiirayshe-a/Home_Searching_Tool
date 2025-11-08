@@ -481,115 +481,7 @@ void red_b<T>::double_B_helper(Node* exsibling, Node* expar){
         }
     }
 }
-//Should not be used in general cases but can be used if a specific unit needs to be removed
-template <typename T>
-bool red_b<T>::erase(int pos){
-    if(pos >= tree_size || pos<0 ){
-        return false;
-    }
-    int counter= 0;
-    //Morris Traversal Implementation.
-    // I wanted a non recursive solution which used as little space as possible
-    //https://www.geeksforgeeks.org/dsa/inorder-tree-traversal-without-recursion-and-without-stack
-    // The Morris Travel algorithm which I found at the above uses O(1) space and meets that criteria.
-    Node* current_node = root;
-    while(current_node != nullptr){
-        if(counter==pos){
-            return remove(current_node);
-        }
-        if(current_node->lc == nullptr){
-            //this handles the case of no left child and moves to the right child
-            current_node = current_node->rc;
-        }else{
-            //This handles the case of a left child
-            Node* in_order_predecessor = current_node->lc;
-            while(in_order_predecessor->rc != nullptr && in_order_predecessor->rc != current_node){
-                in_order_predecessor = in_order_predecessor->rc;
-            }
-            if(in_order_predecessor->rc == nullptr){
-                in_order_predecessor->rc = current_node;
-                current_node = current_node->lc;
-            }else{
-                in_order_predecessor->rc = nullptr;
-                current_node = current_node->rc;
-            }
-            }
-        counter++;
-    }
-    return false;
-}
-// data based removal, removes only the node with the given data, should not be used often.
-template <typename T>
-bool red_b<T>::erase(T a){
-    //Morris Traversal Implementation.
-    // I wanted a non recursive solution which used as little space as possible
-    //https://www.geeksforgeeks.org/dsa/inorder-tree-traversal-without-recursion-and-without-stack
-    // The Morris Travel algorithm which I found at the above uses O(1) space and meets that criteria.
-    Node* current_node = root;
-    while(current_node != nullptr){
-        if(current_node->data==a){
-            return remove(current_node);
-        }
-        if(current_node->lc == nullptr){
-            //this handles the case of no left child and moves to the right child
-            current_node = current_node->rc;
-        }else{
-            //This handles the case of a left child
-            Node* in_order_predecessor = current_node->lc;
-            while(in_order_predecessor->rc != nullptr && in_order_predecessor->rc != current_node){
-                in_order_predecessor = in_order_predecessor->rc;
-            }
-            if(in_order_predecessor->rc == nullptr){
-                in_order_predecessor->rc = current_node;
-                current_node = current_node->lc;
-            }else{
-                in_order_predecessor->rc = nullptr;
-                current_node = current_node->rc;
-            }
-            }
-    }
-    return false;
-}
-//range based removal, use with 0, size-1 to clear the tree.
-template <typename T>
-bool red_b<T>::erase(int first, int last){
-    if(first<0 || last > tree_size-1){
-        return false;
-    }
-    int counter= 0;
-    //Morris Traversal Implementation.
-    // I wanted a non recursive solution which used as little space as possible
-    //https://www.geeksforgeeks.org/dsa/inorder-tree-traversal-without-recursion-and-without-stack
-    // The Morris Travel algorithm which I found at the above uses O(1) space and meets that criteria.
-    Node* current_node = root;
-    while(current_node != nullptr){
-        if(counter>=first && counter<=last){
-            bool failcheck = remove(current_node);
-            if(failcheck == false){
-                return  false;
-            }
-        }
-        if(current_node->lc == nullptr){
-            //this handles the case of no left child and moves to the right child
-            current_node = current_node->rc;
-        }else{
-            //This handles the case of a left child
-            Node* in_order_predecessor = current_node->lc;
-            while(in_order_predecessor->rc != nullptr && in_order_predecessor->rc != current_node){
-                in_order_predecessor = in_order_predecessor->rc;
-            }
-            if(in_order_predecessor->rc == nullptr){
-                in_order_predecessor->rc = current_node;
-                current_node = current_node->lc;
-            }else{
-                in_order_predecessor->rc = nullptr;
-                current_node = current_node->rc;
-            }
-            }
-        counter++;
-    }
-    return true;
-}
+
 //insertion
 template <typename T>
 T red_b<T>::at(int a){
@@ -700,6 +592,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
