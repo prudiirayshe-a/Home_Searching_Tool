@@ -70,6 +70,7 @@ bool red_b<T>::insert(T a){
         return true; 
     }else{
         recoloring_rotation(child);
+        return true;
     }
     return false;
 };
@@ -567,6 +568,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
