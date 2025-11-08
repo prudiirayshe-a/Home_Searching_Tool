@@ -17,6 +17,7 @@ using namespace std;
 struct PointLL {
     double lat{};
     double lon{};
+    int price{0};
 };
 
 // center
@@ -31,6 +32,7 @@ struct RowLite {
     string state;
     double lat{};
     double lon{};
+    int price{0};
 };
 
 // edge
@@ -52,8 +54,12 @@ public:
     vector<PointLL> queryKm(string stateRaw, string cityRaw, double radius_km);
     vector<PointLL> queryKmFast(string stateRaw, string cityRaw, double radius_km);
 
-    size_t totalRowsLoaded() { return loaded_; }
-    size_t totalRowsSkipped() { return skipped_; }
+    size_t totalRowsLoaded() { 
+        return loaded_; 
+    }
+    size_t totalRowsSkipped() { 
+        return skipped_; 
+    }
 
 private:
     // points
@@ -66,14 +72,17 @@ private:
     size_t loaded_{0};
     size_t skipped_{0};
 
-    static bool parseHeader(string header, int& idxCity, int& idxState, int& idxLat, int& idxLon);
-    static bool parseRowLite(string line, int idxCity, int idxState, int idxLat, int idxLon, RowLite& out);
+    static bool parseHeader(string header, int& idxCity, int& idxState, int& idxLat, int& idxLon, int& idxPrice);
+    static bool parseRowLite(string line, int idxCity, int idxState, int idxLat, int idxLon, int idxPrice RowLite& out);
 
     static double haversine_km(double lat1, double lon1, double lat2, double lon2);
-    static double deg2rad(double x) { return x * 0.01745; }
+    static double deg2rad(double x) { 
+        return x * 0.01745; 
+    }
 
     void computeCenters();
     void buildAdjacency();
 };
 
 #endif // INDEX_H
+
