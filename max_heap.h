@@ -144,15 +144,19 @@ class max_heap{
         return temp;
     }
     // push after those heap should be done
-    void push(T a){
-        internal_arr->push_back(a);
-        int last = internal_arr->size- 1;
+    void heapify_up(int last) {
         while (last > 0) {
             if ((*internal_arr)[(last-1)/2] < (*internal_arr)[last]) {
-            internal_arr->swap(last, (last-1)/2);
+                internal_arr->swap(last, (last-1)/2);
             }
             last = (last-1)/2;
         }
+        return;
+    }
+    void push(T a){
+        internal_arr->push_back(a);
+        int last = internal_arr->size- 1;
+        heapify_up(last);
         return;
     }
     //Assignment operator
