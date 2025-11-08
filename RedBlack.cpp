@@ -344,6 +344,9 @@ bool red_b<T>::remove(Node* N){
                 exparent->rc = nullptr;
             }
             double_B_helper(exsibling, exparent);
+            delete N;
+            tree_size--;
+            return true;
         }
     }
 }
@@ -555,6 +558,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
