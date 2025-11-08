@@ -168,6 +168,7 @@ void red_b<T>::rotate_left(Node* right_node, Node* former_parent){
     //check if root needs to be reassigned
     if(right_node->parent == nullptr){
         root =  right_node;
+        right_node->parent = nullptr;
     }else if(right_node->parent->lc == former_parent){
         right_node->parent->lc = right_node;
     }else{
@@ -197,7 +198,8 @@ void red_b<T>::rotate_right(Node* left_node, Node* former_parent){
 
     //check if root needs to be reassigned
     if(left_node->parent == nullptr){
-        root =  left_node;
+        root = left_node;
+        left_node->parent = nullptr;
     }else if(left_node->parent->lc == former_parent){
         left_node->parent->lc = left_node;
     }else{
@@ -570,6 +572,7 @@ template <typename T>
 red_b<T>::~red_b(){
     delete_subtree(root);
 }
+
 
 
 
